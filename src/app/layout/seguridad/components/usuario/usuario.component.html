@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!--header, nombre del formulario-->
+    <h2 class="page-header">
+      Usuarios
+    </h2>
+    <!--tabla de usuarios-->
+    <div class="card mb-3">
+      <div class="card-header">Listado de usuarios</div>
+      <app-modal-create-user #modalCreate (onItemAdded)="onItemAdded($event)" (onItemEdited)="onItemEdited($event)"></app-modal-create-user>
+      <div class="card-block">
+        <app-ctr-grid-view [Columns]="[
+          {FieldName:'name',Caption:'Nombre',ColumnFilter:'name'},
+          {FieldName:'phone',Caption:'Teléfono',ColumnFilter:'phone'},
+          {FieldName:'website',Caption:'Sitio Web',ColumnFilter:'website'},
+          {FieldName:'email',Caption:'Correo',ColumnFilter:'email'}
+        ]" [DataSource]="listUsuarios" (onDeleteClick)="onDeleteClick($event)"  (onEditClick)="onEditClick($event, modalCreate)" (onPageChange)="pageChange($event)" [Loading]="loading"></app-ctr-grid-view>
+      </div>
+    </div>
+  </div>
+</div>

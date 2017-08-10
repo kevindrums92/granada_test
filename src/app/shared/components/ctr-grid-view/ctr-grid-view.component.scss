@@ -1,0 +1,52 @@
+@import "../../../../styles/bootstrap/variables";
+
+.notRecords{
+    text-align: center;
+    color: $brand-warning;
+    font-weight: bold;
+}
+.table{
+    .orderingColumn{
+        cursor: pointer !important;
+
+    }
+    .orderingColumn:hover{
+        cursor: pointer !important;
+        text-decoration: underline;
+    }
+} 
+.orderBy{
+    font-weight: 400;
+    font-style: italic;
+}
+
+.filterInput{
+    
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid $brand-primary;
+    -webkit-transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    width: calc(100% - 2px);
+    &:focus {
+        -webkit-transition: box-shadow 0.3s;
+        transition: box-shadow 0.3s;
+        outline: 0;
+        border-bottom: 2px solid darken($brand-primary,20%);
+
+    }
+}
+.table td{
+    border-top: none;
+    border-bottom: 1px solid $gray-lighter;
+}
+.loadingBar{
+    background-color: #FFF;
+    border:0 !important;
+    padding: 0;
+    .progress{
+        border-radius: 0 !important;
+    }
+}
+

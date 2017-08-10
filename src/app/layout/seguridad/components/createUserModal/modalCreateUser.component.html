@@ -1,0 +1,51 @@
+<div class="row" style="margin:10px;">
+    <div class="col-sm-12">
+        <button class="btn btn-primary" (click)="open()">Nuevo Usuario</button>
+        <ng-template #content let-c="close" let-d="dismiss">
+            <form #frmUser="ngForm" (ngSubmit)="onSubmit(frmUser)">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo Usuario</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group row">
+                        <div class="col-md-6 col-sm-12" [ngClass]='{"has-danger": name.touched && !name.valid}'>
+                            <label class="form-control-label">Nombre</label>
+                            <input type="text" name="name" required #name="ngModel" [(ngModel)]="user.name" class="form-control">
+                            <span *ngIf="name.touched && !name.valid">Nombre es requerido</span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12" [ngClass]='{"has-danger": phone.touched && !phone.valid}'>
+                            <label class="form-control-label">Teléfono</label>
+                            <input type="text" name="phone" required #phone="ngModel" [(ngModel)]="user.phone" class="form-control">
+                            <span *ngIf="phone.touched && !phone.valid">Teléfono es requerido</span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12" [ngClass]='{"has-danger": website.touched && !website.valid}'>
+                            <label class="form-control-label">Sitio Web</label>
+                            <input type="text" name="website" required #website="ngModel" [(ngModel)]="user.website" class="form-control">
+                            <span *ngIf="website.touched && !website.valid">Sitio Web es requerido</span>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12" [ngClass]='{"has-danger": email.touched && !email.valid}'>
+                            <label class="form-control-label">Email</label>
+                            <input type="text" name="email" required #email="ngModel" [(ngModel)]="user.email" class="form-control">
+                            <span *ngIf="email.touched && !email.valid">Email es requerido</span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn btn-primary" type="submit">Guardar</button>
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                </div>
+            </form>
+        </ng-template>
+    </div>
+</div>

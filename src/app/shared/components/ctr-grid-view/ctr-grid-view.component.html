@@ -1,0 +1,63 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let item of Columns">
+          <span style="cursor:default;" [class.orderingColumn]="!item.ExcludeOrdering" (click)="!item.ExcludeOrdering && orderByChange(item)"> 
+            {{item.Caption}} <span *ngIf="item.OrderBy"><b class="fa fa-sort"></b> <span class="orderBy">({{item.OrderBy}})</span></span>
+          </span>
+        </th>
+        <th>
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--RowFilter-->
+      <tr *ngIf="canShowFilterRow()">
+        <td *ngFor="let item of Columns" style="border:none;">
+          <input class="filterInput" type="text" [ngModel]='item.Filter' (ngModelChange)='changedFilter($event, item)' placeholder="Filtrar..."
+            *ngIf="item.ColumnFilter && !item.RepositoryItem" />
+          <select class="filterInput" [(ngModel)]="item.Filter" *ngIf="item.ColumnFilter && item.RepositoryItem" (ngModelChange)='changedFilter($event, item)'>
+            <option *ngFor="let rep of item.RepositoryItem" value="{{rep.ValueMember}}">{{rep.DisplayMember}}</option>
+          </select>
+        </td>
+        <td></td>
+      </tr>
+      <!--/End RowFilter-->
+
+      <!--Loading-->
+      <tr *ngIf="Loading">
+        <td [attr.colspan]="Columns.length" class="loadingBar">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%; height:6px;"></div>
+          </div>
+        </td>
+      </tr>
+      <!--/End Loading-->
+
+      <!--Not record-->
+      <tr *ngIf="!DataSource || DataSource.data.length == 0">
+        <td [attr.colspan]="Columns.length" class="notRecords">¡No hay registros!</td>
+      </tr>
+      <!--/End Not record-->
+
+      <!--print Data-->
+      <tr *ngFor="let itemRow of getListData()">
+        <td *ngFor="let itemCol of Columns">{{getValueRowCell(itemRow,itemCol)}}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="deleteItem(itemRow)" type="button">Eliminar</button>
+          <button class="btn btn-sm btn-info" (click)="editItem(itemRow)" type="button">Editar</button>
+        </td>
+      </tr>
+      <!--/End Data-->
+    </tbody>
+  </table>
+</div>
+<div style="padding: 1.25rem;" *ngIf="DataSource && DataSource.count > 0">
+  <ngb-pagination [collectionSize]="(DataSource) ? DataSource.count : 0" [(page)]="query.page" [maxSize]="5" [pageSize]="query.take"
+    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="pageChange($event)">
+  </ngb-pagination>
+</div>
+
+<!--<div class="code">{{Columns | json}}</div>-->

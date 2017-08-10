@@ -1,0 +1,33 @@
+<div class="login-page">
+    <div class="row">
+        <div class="col-md-4 push-md-4">
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h1>Sistema de Información</h1>
+            <form #frmLogin="ngForm" role="form">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" name="uc" required #uc="ngModel" [(ngModel)]="loginData.uc" 
+                         class="form-control input-underline input-lg" placeholder="Email o Código"
+                         [ngStyle]="{
+                            'border-color':(uc.touched && !uc.valid)?'#c9302c':''
+                         }" (keyup.enter)="onSubmit(frmLogin)">
+                         <span style="color:#c9302c" *ngIf="uc.touched && !uc.valid">*Email o Código es requerido</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name=ps required #ps="ngModel" [(ngModel)]="loginData.ps"
+                        class="form-control input-underline input-lg" id="" placeholder="Password"
+                        [ngStyle]="{
+                            'border-color':(ps.touched && !ps.valid)?'#c9302c':''
+                         }" (keyup.enter)="onSubmit(frmLogin)">
+                        <span style="color:#c9302c" *ngIf="ps.touched && !ps.valid">*Password es requerido</span>
+                    </div>
+                    <span style="color:#c9302c" *ngIf="errorLogin">{{errorLogin}}</span>
+                </div>
+                <a class="btn rounded-btn" (click)="onSubmit(frmLogin)"> Ingresar </a>
+                
+                <a *ngIf="false" class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
+            </form>
+        </div>
+    </div>
+</div>
